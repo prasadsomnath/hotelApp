@@ -1,0 +1,15 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\HotelApp",
+    "\\HotelApp\\bin",
+    "\\HotelApp\\bin\\Debug",
+    "\\HotelApp\\Data",
+    "\\HotelApp\\Views",
+    "\\HotelApp\\Views\\Home",
+    "\\HotelApp\\Views\\Inventory",
+    "\\HotelApp\\Views\\Shared",
+    "\\HotelApp\\Views\\Transactions"
+  ],
+  "PreviewInSolutionExplorer": false
+}

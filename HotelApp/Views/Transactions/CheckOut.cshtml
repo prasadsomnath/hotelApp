@@ -1,0 +1,24 @@
+@model CheckOutViewModel
+<h3>Bill & Check-Out</h3>
+<div class="card">
+  <div class="card-body">
+    <p><strong>Guest:</strong> @Model.GuestName</p>
+    <p><strong>Room:</strong> @Model.RoomNumber</p>
+    <p><strong>Stay:</strong> @Model.CheckIn:yyyy-MM-dd → @Model.CheckOut:yyyy-MM-dd (@Model.Nights night(s))</p>
+    <hr/>
+    <h5>Charges</h5>
+    <ul>
+      <li>Room: ₹@Model.RoomRate x @Model.Nights night(s)</li>
+      @foreach (var f in Model.Facilities){
+        <li>@f.name: ₹@f.perDay x @Model.Nights day(s)</li>
+      }
+    </ul>
+    <p><strong>Subtotal:</strong> ₹@Model.Subtotal</p>
+    <p><strong>Tax (12%):</strong> ₹@Model.Tax</p>
+    <p class="fs-5"><strong>Total:</strong> ₹@Model.Total</p>
+    <form method="post" action="/Transactions/ConfirmCheckOut/@Model.BookingId">
+      <button class="btn btn-success">Confirm Check-Out</button>
+      <a class="btn btn-secondary" href="/Transactions/ActiveStays">Back</a>
+    </form>
+  </div>
+</div>

@@ -1,0 +1,56 @@
+@model IEnumerable<HotelApp.Models.Booking>
+
+    <h3>Active Stays</h3>
+
+    <form asp-action="ClearHistory" method="post" class="mb-2">
+        @Html.AntiForgeryToken()
+        <button class="btn btn-outline-danger btn-sm"
+                onclick="return confirm('Delete all completed (leaved) bookings?')">
+            Clear History (Leaved)
+        </button>
+    </form>
+
+    <table class="table table-bordered table-sm">
+        <thead>
+            <tr>
+                <th>Guest</th>
+                <th>Room</th>
+                <th>Check-In</th>
+                <th>Expected Check-Out</th>
+                <th>Status</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var b in Model)
+  {
+      var isLeaved = b.CheckOut.HasValue && b.CheckOut.Value.Date <= DateTime.Today;
+      var statusText = isLeaved ? "Leaved" : "Present";
+      var badgeClass = isLeaved ? "bg-secondary" : "bg-success";
+
+            <tr>
+                <td>@(b.Guest?.FullName ?? "Unknown guest")</td>
+                <td>@($"{b.Room?.Number ?? "N/A"} ({b.Room?.Type ?? "-"})")</td>
+                <td>@b.CheckIn.ToString("yyyy-MM-dd")</td>
+                <td>@(b.CheckOut?.ToString("yyyy-MM-dd") ?? "-")</td>
+                <td><span class="badge @badgeClass">@statusText</span></td>
+                <td>
+                    <a class="btn btn-outline-primary btn-sm" href="/Transactions/CheckOut/@b.Id">Bill / Check-Out</a>
+
+                    @if (!isLeaved)
+          {
+                    <a class="btn btn-outline-warning btn-sm ms-1" href="/Transactions/EditCheckOut/@b.Id">Extend Stay</a>
+          }
+          else
+          {
+                    <form asp-action="DeleteBooking" asp-route-id="@b.Id" method="post" style="display:inline"
+                          onsubmit="return confirm('Delete this history record?')">
+                        @Html.AntiForgeryToken()
+                        <button class="btn btn-outline-danger btn-sm ms-1">Delete</button>
+                    </form>
+          }
+                </td>
+            </tr>
+  }
+        </tbody>
+    </table>

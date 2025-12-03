@@ -1,0 +1,19 @@
+@model Facility
+<h3>Edit Facility</h3>
+<form method="post">
+  <input type="hidden" asp-for="Id"/>
+  <div class="mb-2">
+    <label class="form-label">Name</label>
+    <input asp-for="Name" class="form-control"/>
+  </div>
+  <div class="mb-2">
+    <label class="form-label">Description</label>
+    <input asp-for="Description" class="form-control"/>
+  </div>
+  <div class="mb-2">
+    <label class="form-label">UnitPricePerDay (₹)</label>
+    <input asp-for="UnitPricePerDay" class="form-control"/>
+  </div>
+  <button class="btn btn-primary">Save</button>
+  <a class="btn btn-secondary" href="/Inventory">Cancel</a>
+</form>

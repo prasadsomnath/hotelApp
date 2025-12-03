@@ -1,0 +1,53 @@
+@{
+    var rooms = (IEnumerable<HotelApp.Models.Room>)ViewBag.Rooms;
+    var facilities = (IEnumerable<HotelApp.Models.Facility>)ViewBag.Facilities;
+}
+<div class="row">
+    <div class="col-md-6">
+        <h3>Rooms</h3>
+        <a class="btn btn-primary btn-sm mb-2" href="/Inventory/CreateRoom">Add Room</a>
+        <table class="table table-bordered table-sm">
+            <thead><tr><th>#</th><th>Type</th><th>Capacity</th><th>Rate/Night (₹)</th><th></th></tr></thead>
+            <tbody>
+                @foreach(var r in rooms){
+                <tr>
+                    <td>@r.Number</td>
+                    <td>@r.Type</td>
+                    <td>@r.Capacity</td>
+                    <td>@r.RatePerNight</td>
+                    <td>
+                        <a class="btn btn-outline-secondary btn-sm" href="/Inventory/EditRoom/@r.Id">Edit</a>
+                        <form method="post" action="/Inventory/DeleteRoom/@r.Id" style="display:inline" onsubmit="return confirm('Delete room?')">
+                            <button class="btn btn-outline-danger btn-sm">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+      }
+            </tbody>
+        </table>
+    </div>
+    <div class="col-md-6">
+        <h3>Facilities</h3>
+        <a class="btn btn-primary btn-sm mb-2" href="/Inventory/CreateFacility">Add Facility</a>
+        <table class="table table-bordered table-sm">
+            <thead><tr><th>Name</th><th>Price/Day (₹)</th><th></th></tr></thead>
+            <tbody>
+                @foreach(var f in facilities){
+                <tr>
+                    <td>
+                        <strong>@f.Name</strong><br />
+                        <small class="text-muted">@f.Description</small>
+                    </td>
+                    <td>@f.UnitPricePerDay</td>
+                    <td>
+                        <a class="btn btn-outline-secondary btn-sm" href="/Inventory/EditFacility/@f.Id">Edit</a>
+                        <form method="post" action="/Inventory/DeleteFacility/@f.Id" style="display:inline" onsubmit="return confirm('Delete facility?')">
+                            <button class="btn btn-outline-danger btn-sm">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+      }
+            </tbody>
+        </table>
+    </div>
+</div>

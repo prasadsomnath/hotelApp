@@ -1,0 +1,25 @@
+@model HotelApp.Models.Booking
+
+<h3>Extend Stay</h3>
+
+<form method="post">
+    <div class="mb-2">
+        <label class="form-label">Guest</label>
+        <input type="text" value="@Model.Guest.FullName" class="form-control" disabled />
+    </div>
+
+    <div class="mb-2">
+        <label class="form-label">Room</label>
+        <input type="text" value="@Model.Room.Number" class="form-control" disabled />
+    </div>
+
+    <div class="mb-2">
+        <label class="form-label">Current Check-Out</label>
+        <input type="date" asp-for="CheckOut" class="form-control" />
+    </div>
+
+    <button class="btn btn-primary">Update</button>
+    <a class="btn btn-secondary" href="/Transactions/ActiveStays">Cancel</a>
+</form>
+
+@section Scripts { <partial name="_ValidationScriptsPartial"/> }

@@ -1,0 +1,49 @@
+@model CheckInViewModel
+<h3>Guest Check-In</h3>
+<form method="post">
+  <div class="mb-2">
+    <label class="form-label">Room</label>
+    <select asp-for="RoomId" class="form-select" asp-items="@(new SelectList(Model.Rooms, "Id", "Number"))"></select>
+    <span asp-validation-for="RoomId" class="text-danger"></span>
+  </div>
+  <div class="mb-2">
+    <label class="form-label">Guest Name</label>
+    <input asp-for="GuestFullName" class="form-control"/>
+    <span asp-validation-for="GuestFullName" class="text-danger"></span>
+  </div>
+    <div class="mb-2">
+    <label class="form-label">Phone Number</label>
+    <input asp-for="Phone" class="form-control"  />
+    <span asp-validation-for="Phone" class="text-danger"></span>
+</div>
+
+<div class="mb-2">
+    <label class="form-label">Email</label>
+    <input asp-for="Email" class="form-control" />
+    <span asp-validation-for="Email" class="text-danger"></span>
+</div>
+
+  <div class="row">
+    <div class="col">
+      <label class="form-label">Check-In</label>
+      <input asp-for="CheckIn" class="form-control" type="date"/>
+    </div>
+    <div class="col">
+      <label class="form-label">Expected Check-Out</label>
+      <input asp-for="CheckOut" class="form-control" type="date"/>
+      <span asp-validation-for="CheckOut" class="text-danger"></span>
+    </div>
+  </div>
+  <div class="mb-2">
+    <label class="form-label">Facilities</label><br/>
+    @foreach (var f in Model.Facilities!){
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="checkbox" name="SelectedFacilityIds" value="@f.Id" id="f_@f.Id" />
+          <label class="form-check-label" for="f_@f.Id">@f.Name (@f.UnitPricePerDay₹/day)</label>
+        </div>
+    }
+  </div>
+  <button class="btn btn-primary">Check In</button>
+  <a class="btn btn-secondary" href="/Transactions/ActiveStays">Cancel</a>
+</form>
+@section Scripts { <partial name="_ValidationScriptsPartial"/> }
